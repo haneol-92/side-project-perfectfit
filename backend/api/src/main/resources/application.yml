@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://minpark.synology.me:3306/mk_sports
+    username: mw9027
+    password: oY5(RNwsJE
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
