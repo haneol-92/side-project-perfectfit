@@ -6,7 +6,8 @@ Vue.use(Router)
 const router = new Router({
     routes: [
         {path:'/', component: () => import('../components/Home.vue')},
-        {path:'/Login', component: () => import('../components/Login.vue')}
+        {path:'/Login', component: () => import('../components/Login.vue')},
+        {path:'/Register', component: () => import('../components/Register.vue')}
     ]
 })
 
