@@ -9,43 +9,14 @@
               <div class="row justify-content-center px-3 mb-3"> <img id="logo" src="https://i.imgur.com/PSXxjNY.png"> </div>
               <h3 class="mb-5 text-center heading">Sports Score Board</h3>
               <h6 class="msg-info">Please login to your account</h6>
-              <b-form @submit="onSubmit">
-                <b-form-group
-                    class="form-control-label text-muted"
-                    id="input-group-1"
-                    label="Username"
-                    label-for="input-1"
-                >
-                  <b-form-input
-                      class="form-control"
-                      id="input-1"
-                      v-model="form.id"
-                      placeholder="Enter Username"
-                      required
-                  ></b-form-input>
-                </b-form-group>
-                <b-form-group
-                    class="form-control-label text-muted"
-                    id="input-group-2"
-                    label="Password"
-                    label-for="input-2"
-                >
-                  <b-form-input
-                      class="form-control"
-                      id="input-2"
-                      v-model="form.pw"
-                      type="password"
-                      placeholder="Enter Password"
-                      required
-                  ></b-form-input>
-                </b-form-group>
-                <div class="row justify-content-center my-3 px-3"> <b-button class="btn-block btn-color" type="submit">Login</b-button></div>
-                <div class="row justify-content-center my-2"> <a href="#"><small class="text-muted">Forgot Password?</small></a> </div>
-              </b-form>
+              <div class="form-group"> <label class="form-control-label text-muted">Username</label> <input type="text" id="email" name="email" placeholder="Phone no or email id" class="form-control"> </div>
+              <div class="form-group"> <label class="form-control-label text-muted">Password</label> <input type="password" id="psw" name="psw" placeholder="Password" class="form-control"> </div>
+              <div class="row justify-content-center my-3 px-3"> <button class="btn-block btn-color">Login to Tidi</button> </div>
+              <div class="row justify-content-center my-2"> <a href="#"><small class="text-muted">Forgot Password?</small></a> </div>
             </div>
           </div>
           <div class="bottom text-center mb-5">
-            <router-link to="/Register" class="sm-text mx-auto mb-3">Don't have an account?<button class="btn btn-white ml-2">Create new</button></router-link>
+            <p href="#" class="sm-text mx-auto mb-3">Don't have an account?<button @click="register" class="btn btn-white ml-2">Create new</button></p>
           </div>
         </div>
         <div class="card card2">
@@ -78,6 +49,9 @@ export default {
       ).then(response => alert(response.data))
       .catch(e => console.log(e))
     },
+    register(){
+      this.$router.push({path:'./register'});
+    }
   }
 }
 </script>
