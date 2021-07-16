@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const router = new Router({
+    mode: "history",
     routes: [
         {path:'/', component: () => import('../components/Home.vue')},
         {path:'/Login', component: () => import('../components/Login.vue')},
