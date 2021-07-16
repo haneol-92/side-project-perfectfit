@@ -80,7 +80,7 @@ export default {
 
 html, body {
   height: 100%;
-  background-color: grey;
+  background-image: linear-gradient(to right, #212529, #4f66ff);
   overflow: hidden;
 }
 
