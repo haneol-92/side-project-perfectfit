@@ -6,40 +6,39 @@
         <div class="form-content">
           <div class="form-items">
             <h3>회원가입</h3>
-            <form class="requires-validation" novalidate>
+            <form @submit="onSubmit" class="requires-validation" novalidate>
               <div class="col-md-12">
-                <input class="form-control" type="text" name="id" placeholder="아이디" required>
+                <input v-model="form.userid" class="form-control" type="text" name="id" placeholder="아이디" required>
                 <div class="valid-feedback">Username field is valid!</div>
                 <div class="invalid-feedback">Username field cannot be blank!</div>
               </div>
 
               <div class="col-md-12">
-                <input class="form-control" type="password" name="password" placeholder="비밀번호" required>
+                <input v-model="form.passwd" class="form-control" type="password" name="password" placeholder="비밀번호" required>
                 <div class="valid-feedback">Password field is valid!</div>
                 <div class="invalid-feedback">Password field cannot be blank!</div>
               </div>
 
               <div class="col-md-12">
-                <input class="form-control" type="text" name="name" placeholder="이름" required>
+                <input v-model="form.name" class="form-control" type="text" name="name" placeholder="이름" required>
                 <div class="valid-feedback">Username field is valid!</div>
                 <div class="invalid-feedback">Username field cannot be blank!</div>
               </div>
 
               <div class="col-md-12">
-                <input class="form-control" type="email" name="email" placeholder="이메일" required>
-                <div class="valid-feedback">Email field is valid!</div>
-                <div class="invalid-feedback">Email field cannot be blank!</div>
-              </div>
-
-              <div class="col-md-12">
-                <select class="form-select mt-3" required>
-                  <option selected disabled value="">직업</option>
-                  <option value="jweb">Junior Web Developer</option>
-                  <option value="sweb">Senior Web Developer</option>
-                  <option value="pmanager">Project Manager</option>
+                <select v-model="form.sex" class="form-select mt-3" required>
+                  <option selected disabled value="">성별</option>
+                  <option value="m">남</option>
+                  <option value="f">여</option>
                 </select>
                 <div class="valid-feedback">You selected a position!</div>
                 <div class="invalid-feedback">Please select a position!</div>
+              </div>
+
+              <div class="col-md-12">
+                <input v-model="form.phone" class="form-control" type="email" name="email" placeholder="휴대폰" required>
+                <div class="valid-feedback">Email field is valid!</div>
+                <div class="invalid-feedback">Email field cannot be blank!</div>
               </div>
 
               <div class="form-check">
@@ -62,8 +61,32 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-  name: "Register"
+  data() {
+    return {
+      form: {
+        userid: '',
+        passwd: '',
+        name: '',
+        sex: '',
+        phone: '',
+        birth: '',
+        createdAt: '',
+        updatedAt: ''
+      },
+    }
+  },
+  methods: {
+    onSubmit(event) {
+      event.preventDefault()
+      axios.post('http://localhost:8080/useradd',
+          JSON.stringify(this.form), { headers: { 'Content-Type': 'application/json' }}
+
+      ).then(response => alert(response.data))
+          .catch(e => console.log(e))
+    }
+  }
 }
 </script>
 
