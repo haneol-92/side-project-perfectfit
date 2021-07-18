@@ -10,34 +10,11 @@
               <h3 class="mb-5 text-center heading">Sports Score Board</h3>
               <h6 class="msg-info">Please login to your account</h6>
               <b-form @submit="onSubmit">
-                <b-form-group
-                    class="form-control-label text-muted"
-                    id="input-group-1"
-                    label="Username"
-                    label-for="input-1"
-                >
-                  <b-form-input
-                      class="form-control"
-                      id="input-1"
-                      v-model="form.userid"
-                      placeholder="Enter Username"
-                      required
-                  ></b-form-input>
+                <b-form-group class="form-control-label text-muted" id="input-group-1" label="Username" label-for="input-1">
+                  <b-form-input class="form-control" id="input-1" v-model="form.userid" placeholder="Enter Username" required></b-form-input>
                 </b-form-group>
-                <b-form-group
-                    class="form-control-label text-muted"
-                    id="input-group-2"
-                    label="Password"
-                    label-for="input-2"
-                >
-                  <b-form-input
-                      class="form-control"
-                      id="input-2"
-                      v-model="form.passwd"
-                      type="password"
-                      placeholder="Enter Password"
-                      required
-                  ></b-form-input>
+                <b-form-group class="form-control-label text-muted" id="input-group-2" label="Password" label-for="input-2">
+                  <b-form-input class="form-control" id="input-2" v-model="form.passwd" type="password" placeholder="Enter Password" required></b-form-input>
                 </b-form-group>
                 <div class="row justify-content-center my-3 px-3"> <b-button class="btn-block btn-color" type="submit">Login</b-button></div>
                 <div class="row justify-content-center my-2"> <a href="#"><small class="text-muted">Forgot Password?</small></a> </div>
@@ -61,23 +38,37 @@
 
 <script>
 import axios from 'axios';
+//import VueCookies from 'vue-cookies';
+
+const storage = window.sessionStorage;
+
 export default {
   data() {
     return {
       form: {
         userid: '',
-        passwd: ''
-      },
+        passwd: '',
+        token: "",
+      }
     }
   },
   methods: {
     onSubmit(event) {
+      storage.setItem("jwt-auth-token", "")
+      storage.setItem("login_user", "")
       event.preventDefault()
-      axios.post('http://localhost:8080/users',
+      axios.post('http://localhost:8080/login',
           JSON.stringify(this.form), { headers: { 'Content-Type': 'application/json' }}
-
-      ).then(response => alert(response.data))
-      .catch(e => console.log(e))
+      ).then(response => {
+        if (response.data.status){
+          axios.defaults.headers.common["X-XSRF-TOKEN"] = response.data.token
+          storage.setItem("jwt-auth-token", response.data.token)
+          storage.setItem("login_user",response.data.data.userid)
+          this.$router.push({path:'./'});
+        }else {
+          console.log("실패해쪄요!")
+        }
+      }).catch(e => console.log(e))
     },
     register(){
       this.$router.push({path:'./register'});
