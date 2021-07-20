@@ -5,27 +5,37 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "List.vue",
   data() {
     return {
       fields: [
-          {key: 'No'},
-          {key: 'Sports'},
-          {key: 'region'},
-          {key: 'Name'},
-          {key: 'Leader'},
-          {key: 'Date'}
+          {key: 'TeamName'},
       ],
       items: [
-        { No: 1, Sports: 'Soccer', region: '서울', Name: 'FC 맨체스터', Leader: '김희중', Date: '2021.06.30'},
-        { No: 2, Sports: 'Basketball', region: '경기도', Name: '광명농구단', Leader: '김희중', Date: '2021.07.20'}
       ]
     }
+  },
+  created() {
+    axios.get("http://localhost:8080/teams")
+        .then(r => {
+          console.log(this.convert(r.data.results));
+          this.items = this.convert(r.data.results);
+        })
+        .catch(e => {
+          console.log(e);
+        })
   },
   methods: {
     handleClick(value) {
       this.viewDetails(value);
+    },
+    convert(results) {
+      return results.reduce((acc, cur) => {
+        return acc.concat([{'Team Name': cur['teamName']}])
+      }, [])
     }
   }
 }
