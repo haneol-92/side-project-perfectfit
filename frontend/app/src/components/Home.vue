@@ -18,7 +18,8 @@
             <button type="button" @click="register"><span>Sign up</span></button>
           </div>
           <div style="float:right" v-else>
-            <span  style="color: white">Welcome!  환영합니다! </span>
+            <span style="color: white">{{login_id}}</span>
+            <span  style="color: white">회원님 Welcome!  환영합니다! </span>
             <button type="button" @click="signout"><span >Sign Out</span></button>
             <button type="button"><span >MyPage</span></button>
           </div>
@@ -408,9 +409,11 @@
   <!--end Modal 6 img -->
   </body>
 </template>
-
+<script src="https://unpkg.com/vue@2.3.3"></script>
 <script>
-//import axios from "axios";
+
+const storage = window.sessionStorage;
+
 export default {
   methods: {
     check(){
@@ -425,6 +428,11 @@ export default {
     signout(){
       this.$cookies.remove('accessToken')
       location.reload()
+    },
+  },
+  data:function(){
+    return{
+      login_id: storage.getItem('login_user')
     }
   }
 }
