@@ -69,13 +69,12 @@ export default {
           axios.defaults.headers.common["X-XSRF-TOKEN"] = response.data.token
           storage.setItem("jwt-auth-token", response.data.token)
           storage.setItem("login_user",response.data.data.userid)
-          this.$cookies.set('accessToken', response.data.token)
-          console.log(this.$cookies.get('accessToken'))
+          this.$cookies.set('accessToken', response.data.token, 60*30)
           this.$router.push({path:'./'})
         }else {
-          console.log("실패해쪄요!")
+          alert("로그인 정보 확인해주세요")
         }
-      }).catch(e => console.log(e))
+      }).catch(()=> alert("로그인 실패!"))
     },
     register(){
       this.$router.push({path:'./register'})
