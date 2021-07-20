@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -13,6 +16,16 @@ import javax.transaction.Transactional;
 public class UserService{
 
     private final UserServiceRepository userServiceRepository;
+
+    @Transactional
+   public boolean findByUseridAndPasswd(String userId, String passwd) {
+
+        List<User> user = userServiceRepository.findByUseridAndPasswd(userId, passwd);
+        if(user.size() == 0 || user.isEmpty()){
+            return false;
+        }
+        return true;
+    }
 
     @Transactional
     public User insertUser(UserInfo userinfo){

@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequiredArgsConstructor
 public class AccountController {
@@ -35,13 +34,18 @@ public class AccountController {
   }
 
   @PostMapping(path = "login")
-  public ResponseEntity<Map<String, Object>> userLogin(@RequestBody UserInfo userinfo, HttpServletResponse response){
-    System.out.println("Here");
+  public ResponseEntity<Map<String, Object>> userLogin(@RequestBody UserInfo userinfo, HttpServletResponse response) throws Exception{
+
     Map<String, Object> resultMap = new HashMap<>();
     HttpStatus status = null;
 
     try{
-      //여기다가 로그인 관련 로직 생성해야 한다.
+
+      if(!userService.findByUseridAndPasswd(userinfo.getUserid(), userinfo.getPasswd())){
+        resultMap.put("status", false);
+        status = HttpStatus.CONFLICT;
+        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+      }
       String token = jwtService.createToken(userinfo);
 
       response.setHeader("jwt-auth-token", token);
