@@ -38,9 +38,14 @@
 
 <script>
 import axios from 'axios';
-//import VueCookies from 'vue-cookies';
+import VueCookies from "vue-cookies";
+import router from "../router";
 
 const storage = window.sessionStorage;
+
+if(VueCookies.get('accessToken') != null){
+  router.push({path:'./'})
+}
 
 export default {
   data() {
@@ -64,14 +69,16 @@ export default {
           axios.defaults.headers.common["X-XSRF-TOKEN"] = response.data.token
           storage.setItem("jwt-auth-token", response.data.token)
           storage.setItem("login_user",response.data.data.userid)
-          this.$router.push({path:'./'});
+          this.$cookies.set('accessToken', response.data.token)
+          console.log(this.$cookies.get('accessToken'))
+          this.$router.push({path:'./'})
         }else {
           console.log("실패해쪄요!")
         }
       }).catch(e => console.log(e))
     },
     register(){
-      this.$router.push({path:'./register'});
+      this.$router.push({path:'./register'})
     }
   }
 }

@@ -14,6 +14,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:8081")
                 .allowedMethods("*")
-                .allowCredentials(true).maxAge(3600);
+                .allowCredentials(false).maxAge(3600);
     }
 }

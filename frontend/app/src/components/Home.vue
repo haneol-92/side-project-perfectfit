@@ -6,23 +6,23 @@
       <div class="navbar navbar-default" role="navigation">
         <div class="container" style="display: block">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand navbar-left" href="#">Sports Coach</a>
+            <a class="navbar-brand navbar-left" href="#">E . T . C</a>
+            <a class="navbar-brand" style="font-size: 17px;" href="#menu-features">Team</a>
+            <a class="navbar-brand" style="font-size: 17px;" href="#menu-information">Match</a>
+            <a class="navbar-brand" style="font-size: 17px;" href="#menu-countdown">League</a>
+            <a class="navbar-brand" style="font-size: 17px;" href="#menu-price">Board</a>
+            <a class="navbar-brand" style="font-size: 17px;" href="#menu-testimonial">Forecast</a>
           </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right" style="display: block">
-              <li><a href="#menu-features">Team</a></li>
-              <li><a href="#menu-information">Match</a></li>
-              <li><a href="#menu-countdown">League</a></li>
-              <li><a href="#menu-price">Board</a></li>
-              <li><a href="#menu-testimonial">Forecast</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+          <div style="float:right" v-if="this.$cookies.get('accessToken') == null">
+            <button type="button" @click="signin"><span>Sign In</span></button>
+            <button type="button" @click="register"><span>Sign up</span></button>
+          </div>
+          <div style="float:right" v-else>
+            <span  style="color: white">Welcome!  환영합니다! </span>
+            <button type="button" @click="signout"><span >Sign Out</span></button>
+            <button type="button"><span >MyPage</span></button>
+          </div>
+          <!--/.nav-collapse -->
         </div>
       </div>
     </header><div style="display: block; width: 100%; height: 80px; float: none;"></div>
@@ -410,13 +410,21 @@
 </template>
 
 <script>
-import axios from "axios";
-
+//import axios from "axios";
 export default {
   methods: {
     check(){
-      console.log("here");
-      console.log(axios.defaults.headers.common["X-XSRF-TOKEN"]);
+      console.log(this.$cookies.get('accessToken'))
+    },
+    signin(){
+      this.$router.push({path:'./login'})
+    },
+    register(){
+      this.$router.push({path:'./register'})
+    },
+    signout(){
+      this.$cookies.remove('accessToken')
+      location.reload()
     }
   }
 }

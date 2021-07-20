@@ -62,6 +62,13 @@
 
 <script>
 import axios from 'axios';
+import router from "../router";
+import VueCookies from "vue-cookies";
+
+if(VueCookies.get('accessToken') != null){
+  router.push({path:'./'})
+}
+
 export default {
   data() {
     return {
