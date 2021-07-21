@@ -19,7 +19,7 @@ export default {
     }
   },
   created() {
-    axios.get("http://localhost:8080/teams")
+    axios.get("http://localhost:9090/teams")
         .then(r => {
           console.log(this.convert(r.data.results));
           this.items = this.convert(r.data.results);

@@ -62,7 +62,7 @@ export default {
       storage.setItem("jwt-auth-token", "")
       storage.setItem("login_user", "")
       event.preventDefault()
-      axios.post('http://localhost:8080/login',
+      axios.post('http://localhost:9090/login',
           JSON.stringify(this.form), { headers: { 'Content-Type': 'application/json' }}
       ).then(response => {
         if (response.data.status){

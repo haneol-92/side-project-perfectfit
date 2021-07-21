@@ -36,16 +36,24 @@ public class AccountController {
   @PostMapping(path = "login")
   public ResponseEntity<Map<String, Object>> userLogin(@RequestBody UserInfo userinfo, HttpServletResponse response) throws Exception{
 
-    Map<String, Object> resultMap = new HashMap<>();
-    HttpStatus status = null;
+    var resultMap = new HashMap<String, Object>();
 
     try{
 
+      // 로그인 시도한 아이디와 패스워드가 맞는지에 대한 체
       if(!userService.findByUseridAndPasswd(userinfo.getUserid(), userinfo.getPasswd())){
         resultMap.put("status", false);
-        status = HttpStatus.CONFLICT;
-        return new ResponseEntity<Map<String, Object>>(resultMap, status);
+        return new ResponseEntity<>(resultMap, HttpStatus.UNAUTHORIZED);
       }
+      /************************홍준기 타임***********************************/
+      //해당 사용자가 휴면인지 아닌지 체크
+      if(!userService.checkStatus(userinfo.getUserid(), 1)){
+        resultMap.put("status", false);
+        return new ResponseEntity<>(resultMap, HttpStatus.UNAUTHORIZED);
+      }
+
+
+
       String token = jwtService.createToken(userinfo);
 
       response.setHeader("jwt-auth-token", token);
@@ -53,12 +61,11 @@ public class AccountController {
       resultMap.put("token",response.getHeader("jwt-auth-token"));
       resultMap.put("status", true);
       resultMap.put("data",userinfo);
-      status = HttpStatus.ACCEPTED;
 
     }catch(Exception e){
       throw e;
     }
-    return new ResponseEntity<Map<String, Object>>(resultMap, status);
+    return ResponseEntity.ok(resultMap);
   }
 
   @PostMapping(path = "/useradd")
@@ -67,5 +74,13 @@ public class AccountController {
     userService.insertUser(userinfo);
 
     return "Join";
+  }
+
+  @PostMapping(path = "/idcheck")
+  public boolean idCheck(@RequestBody String userid){
+
+    boolean result = userService.checkId(userid);
+    System.out.println(result);
+    return result;
   }
 }

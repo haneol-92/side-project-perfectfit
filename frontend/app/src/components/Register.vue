@@ -6,52 +6,79 @@
         <div class="form-content">
           <div class="form-items">
             <h3>회원가입</h3>
-            <form @submit="onSubmit" class="requires-validation" novalidate>
+            <br>
+            <b-form @submit="onSubmit" v-if="show" class="requires-validation" novalidate>
               <div class="col-md-12">
-                <input v-model="form.userid" class="form-control" type="text" name="id" placeholder="아이디" required>
-                <div class="valid-feedback">Username field is valid!</div>
-                <div class="invalid-feedback">Username field cannot be blank!</div>
+                <b-form-group
+                    id="idset-1"
+                    label="아이디"
+                    label-for="input-id"
+                    valid-feedback="사용가능합니다"
+                    :invalid-feedback="invalidFeedback"
+                    :state="state"
+                >
+                <b-form-input id="input-id" v-model="form.userid" :state="state" trim class="form-control" name="id" required></b-form-input>
+                <button v-on:click="idCheck">id check</button>
+                </b-form-group>
               </div>
-
+              <br>
               <div class="col-md-12">
-                <input v-model="form.passwd" class="form-control" type="password" name="password" placeholder="비밀번호" required>
-                <div class="valid-feedback">Password field is valid!</div>
-                <div class="invalid-feedback">Password field cannot be blank!</div>
+                <b-form-group id="pwset-1" label="비밀번호" label-for="input-pw">
+                <b-form-input
+                    id="input-pw"
+                    v-model="form.passwd"
+                    class="form-control"
+                    type="password"
+                    name="password"
+                    required></b-form-input>
+                </b-form-group>
               </div>
-
+              <br>
               <div class="col-md-12">
-                <input v-model="form.name" class="form-control" type="text" name="name" placeholder="이름" required>
-                <div class="valid-feedback">Username field is valid!</div>
-                <div class="invalid-feedback">Username field cannot be blank!</div>
+                <b-form-group id="nameset-1" label="이름" label-for="input-name">
+                <b-form-input
+                    id="input-name"
+                    v-model="form.name"
+                    class="form-control"
+                    type="text"
+                    name="name"
+                    required></b-form-input>
+                </b-form-group>
               </div>
-
+              <br>
               <div class="col-md-12">
-                <select v-model="form.sex" class="form-select mt-3" required>
+                <b-form-group id="sexset-1" label="성별" label-for="input-sex">
+                <b-form-select id="input-sex" v-model="form.sex" class="form-select mt-3" required>
                   <option selected disabled value="">성별</option>
                   <option value="m">남</option>
                   <option value="f">여</option>
-                </select>
-                <div class="valid-feedback">You selected a position!</div>
-                <div class="invalid-feedback">Please select a position!</div>
+                </b-form-select>
+                </b-form-group>
               </div>
-
+              <br>
               <div class="col-md-12">
-                <input v-model="form.phone" class="form-control" type="email" name="email" placeholder="휴대폰" required>
-                <div class="valid-feedback">Email field is valid!</div>
-                <div class="invalid-feedback">Email field cannot be blank!</div>
+                <b-form-group id="phoneset-1" label="휴대폰" label-for="input-phone"
+                >
+                <b-form-input
+                    id="input-phone"
+                    v-model="form.phone"
+                    class="form-control"
+                    type="phone"
+                    name="phone"
+                    required></b-form-input>
+                </b-form-group>
               </div>
-
+              <br>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                 <label class="form-check-label">개인정보 수집에 동의합니다.</label>
-                <div class="invalid-feedback">Please confirm that the entered data are all correct!</div>
               </div>
 
 
               <div class="form-button mt-3">
                 <button id="submit" type="submit" class="btn btn-primary">확인</button>
               </div>
-            </form>
+            </b-form>
           </div>
         </div>
       </div>
@@ -70,6 +97,17 @@ if(VueCookies.get('accessToken') != null){
 }
 
 export default {
+  computed: {
+    state() {
+      return this.form.userid.length >= 5 && this.form.userid.length <= 12
+    },
+    invalidFeedback() {
+      if (this.form.userid.length > 0) {
+        return '5자 이상 12자 이하로 입력해주세요'
+      }
+      return 'id를 입력해주세요'
+    }
+  },
   data() {
     return {
       form: {
@@ -82,18 +120,25 @@ export default {
         createdAt: '',
         updatedAt: ''
       },
+      show: true
     }
   },
   methods: {
     onSubmit(event) {
       event.preventDefault()
-      axios.post('http://localhost:8080/useradd',
-          JSON.stringify(this.form), { headers: { 'Content-Type': 'application/json' }}
-
+      axios.post('http://localhost:9090/useradd',
+          JSON.stringify(this.form), {headers: {'Content-Type': 'application/json'}}
       ).then(response => alert(response.data))
           .catch(e => console.log(e))
+    },
+    idCheck: function(data){
+      data.preventDefault()
+      axios.post('http://localhost:9090/idcheck',
+        this.form.userid, {headers: {'Content-Type': 'text/plain'}}
+      ).then(response => alert(response.data))
+      .catch(e => console.log(e))
     }
-  }
+  },
 }
 </script>
 
