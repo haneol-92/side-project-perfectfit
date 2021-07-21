@@ -42,4 +42,9 @@ public class User {
 
   @UpdateTimestamp
   private Instant updatedAt;
+
+
+  @Column(length = 1)
+  private int status;
+
 }

@@ -7,7 +7,7 @@
         <div class="container" style="display: block">
           <div class="navbar-header">
             <a class="navbar-brand navbar-left" href="#">E . T . C</a>
-            <a class="navbar-brand" style="font-size: 17px;" href="#menu-features">Team</a>
+            <a class="navbar-brand" @click="teamlist" style="font-size: 17px;" href="#menu-features">Team</a>
             <a class="navbar-brand" style="font-size: 17px;" href="#menu-information">Match</a>
             <a class="navbar-brand" style="font-size: 17px;" href="#menu-countdown">League</a>
             <a class="navbar-brand" style="font-size: 17px;" href="#menu-price">Board</a>
@@ -429,6 +429,9 @@ export default {
       this.$cookies.remove('accessToken')
       location.reload()
     },
+    teamlist(){
+      this.$router.push({path:'./Team/list'})
+    }
   },
   data:function(){
     return{

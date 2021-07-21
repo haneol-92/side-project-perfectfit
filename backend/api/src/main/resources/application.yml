@@ -5,10 +5,10 @@ spring:
     password: oY5(RNwsJE
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
     generate-ddl: true
-    show-sql: false
 
 jwt:
   secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
