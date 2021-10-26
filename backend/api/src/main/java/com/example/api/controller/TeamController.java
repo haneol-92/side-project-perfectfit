@@ -1,18 +1,13 @@
 package com.example.api.controller;
 
-import com.example.api.dto.TeamDTO;
-import com.example.api.entity.ResultList;
-import com.example.api.model.Team;
+import com.example.api.beans.ResultList;
+import com.example.api.entity.Team;
 import com.example.api.service.TeamService;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor

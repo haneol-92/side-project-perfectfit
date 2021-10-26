@@ -1,18 +1,12 @@
-package com.example.api.service;
+package com.example.api.service.account;
 
-import com.example.api.entity.UserInfo;
-import com.example.api.model.User;
+import com.example.api.beans.UserInfo;
+import com.example.api.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
-import javax.management.Query;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @RequiredArgsConstructor

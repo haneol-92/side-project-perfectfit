@@ -1,40 +1,41 @@
-package com.example.api.controller;
+package com.example.api.controller.mainpage;
 
-import com.example.api.entity.UserInfo;
-import com.example.api.model.User;
-
+import com.example.api.beans.UserInfo;
 import com.example.api.security.JwtService;
-import com.example.api.service.UserService;
+import com.example.api.service.account.UserService;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
-public class AccountController {
+@RequestMapping(value = "/main")
+public class MainPageController {
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
   private final UserService userService;
 
   private final JwtService jwtService;
 
-  @PostMapping(path = "/user")
-  public String getUsers(@RequestBody UserInfo userinfo) {
+  @GetMapping(path = "/test")
+  public String getUsers(@RequestBody(required = false) UserInfo userinfo) {
+
+    logger.info("loggin test");
 
     return "1";
   }
 
-  @PostMapping(path = "login")
-  public ResponseEntity<Map<String, Object>> userLogin(@RequestBody UserInfo userinfo, HttpServletResponse response) throws Exception{
+  @PostMapping(path = "/list")
+  public ResponseEntity<Map<String, Object>> userLogin(@RequestBody(required = false) UserInfo userinfo,
+                                                       HttpServletResponse response) throws Exception{
 
     var resultMap = new HashMap<String, Object>();
 
@@ -45,15 +46,13 @@ public class AccountController {
         resultMap.put("status", false);
         return new ResponseEntity<>(resultMap, HttpStatus.UNAUTHORIZED);
       }
-      /************************홍준기 타임***********************************/
+
       //해당 사용자가 휴면인지 아닌지 체크
       if(!userService.checkStatus(userinfo.getUserid(), 1)){
         resultMap.put("status", false);
         return new ResponseEntity<>(resultMap, HttpStatus.UNAUTHORIZED);
       }
-
-
-
+      
       String token = jwtService.createToken(userinfo);
 
       response.setHeader("jwt-auth-token", token);
@@ -65,6 +64,7 @@ public class AccountController {
     }catch(Exception e){
       throw e;
     }
+
     return ResponseEntity.ok(resultMap);
   }
 
@@ -83,4 +83,5 @@ public class AccountController {
     System.out.println(result);
     return result;
   }
+
 }

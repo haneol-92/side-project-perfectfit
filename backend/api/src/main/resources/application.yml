@@ -1,14 +1,18 @@
 spring:
   datasource:
-    url: jdbc:mariadb://minpark.synology.me:3306/mk_sports
-    username: mw9027
-    password: oY5(RNwsJE
+    url: jdbc:mariadb://15.165.200.249:3306/perfectfit
+    username: admin
+    password: mysql1018
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
-    generate-ddl: true
+      ddl-auto: none
+    generate-ddl: false
 
 jwt:
   secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK
+
+logging:
+  level:
+    root: info

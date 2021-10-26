@@ -1,4 +1,4 @@
-package com.example.api.entity;
+package com.example.api.beans;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;

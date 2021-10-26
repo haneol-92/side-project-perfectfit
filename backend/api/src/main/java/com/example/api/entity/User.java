@@ -1,4 +1,4 @@
-package com.example.api.model;
+package com.example.api.entity;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;

@@ -1,6 +1,6 @@
-package com.example.api.service;
+package com.example.api.service.account;
 
-import com.example.api.model.User;
+import com.example.api.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

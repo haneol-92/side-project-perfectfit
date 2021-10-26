@@ -1,7 +1,7 @@
 package com.example.api.security;
 
-import com.example.api.entity.UserInfo;
-import com.example.api.service.UserService;
+import com.example.api.beans.UserInfo;
+import com.example.api.service.account.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.Base64;
 import java.util.Date;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Component
