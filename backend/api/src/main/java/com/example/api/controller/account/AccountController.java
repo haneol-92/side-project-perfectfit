@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.api.security.JwtService;
-import com.example.api.service.account.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,12 +53,6 @@ public class AccountController {
         return new ResponseEntity<>(resultMap, HttpStatus.UNAUTHORIZED);
       }
 
-      //해당 사용자가 휴면인지 아닌지 체크
-//      if(!userService.checkStatus(userinfo.getUserid(), 1)){
-//        resultMap.put("status", false);
-//        return new ResponseEntity<>(resultMap, HttpStatus.UNAUTHORIZED);
-//      }
-      
       String token = jwtService.createToken(adminInfo);
 
       response.setHeader("jwt-auth-token", token);
