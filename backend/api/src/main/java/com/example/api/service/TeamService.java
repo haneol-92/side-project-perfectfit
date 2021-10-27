@@ -1,6 +1,5 @@
 package com.example.api.service;
 
-import com.example.api.entity.Team;
 import com.example.api.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

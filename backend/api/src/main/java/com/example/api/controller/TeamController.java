@@ -1,7 +1,6 @@
 package com.example.api.controller;
 
 import com.example.api.beans.ResultList;
-import com.example.api.entity.Team;
 import com.example.api.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
