@@ -1,16 +1,15 @@
-package com.example.api.entity;
+package com.example.api.dto;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import java.time.Instant;
 
-@Data
+
 @Getter
 @Setter
 @ToString
-public class Admin {
+public class AdminInfo {
 
     private Integer admin_seq; // 어드민 번호
     private String id; // 관리자 아이디
@@ -28,4 +27,7 @@ public class Admin {
     private int update_by; // 수정 관리자 key (관리자단에서 사용)
     private int delete_by; // 삭제 관리자 key (관리자단에서 사용)
 
+    public AdminInfo() {
+
+    }
 }

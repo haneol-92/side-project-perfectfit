@@ -1,6 +1,7 @@
 package com.example.api.security;
 
-import com.example.api.beans.UserInfo;
+import com.example.api.dto.AdminInfo;
+import com.example.api.dto.UserInfo;
 import com.example.api.service.account.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -29,8 +30,8 @@ public class JwtService {
     }
 
     // JWT 토큰 생성
-    public String createToken(UserInfo userInfo) {
-        Claims claims = Jwts.claims().setSubject(userInfo.getUserid()); // JWT payload 에 저장되는 정보단위
+    public String createToken(AdminInfo adminInfo) {
+        Claims claims = Jwts.claims().setSubject(adminInfo.getId()); // JWT payload 에 저장되는 정보단위
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 정보 저장

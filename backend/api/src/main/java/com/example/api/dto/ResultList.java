@@ -1,4 +1,4 @@
-package com.example.api.beans;
+package com.example.api.dto;
 
 import lombok.Builder;
 import lombok.Data;

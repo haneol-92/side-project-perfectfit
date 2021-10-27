@@ -1,6 +1,6 @@
 package com.example.api.service.account;
 
-import com.example.api.beans.UserInfo;
+import com.example.api.dto.UserInfo;
 import com.example.api.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

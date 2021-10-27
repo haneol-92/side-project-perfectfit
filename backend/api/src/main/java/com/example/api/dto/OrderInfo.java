@@ -1,4 +1,4 @@
-package com.example.api.beans;
+package com.example.api.dto;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;
@@ -7,14 +7,17 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.Instant;
 
 
 @Getter
 @Setter
 @ToString
-public class UserInfo {
+public class OrderInfo {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer sq;
@@ -43,7 +46,7 @@ public class UserInfo {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    public UserInfo() {
+    public OrderInfo() {
 
     }
 }
