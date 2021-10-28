@@ -4,26 +4,13 @@
 
     <select id="getAdminExsist" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM
-            perfectfit.admin WHERE id = #{id}
+            perfectfit.admin WHERE id = #{userid}
     </select>
 
     <select id="getAdminInfo" resultType="com.example.api.entity.Admin">
-        SELECT
-            A.MEDIA_ID AS mediaName,
-            A.MAIN_DOMAIN AS rootDomain,
-            A.COT_PLTFOM_TP_CODE AS platform,
-            A.PRTCL_TP_CODE AS protocol,
-            A.RPT_BDT_TAG AS selectTag,
-            A.COT_GATR_TP_CODE AS crawlerType,
-            A.MEDIA_TY_SEQ AS mediaType,
-            A.GATR_YN AS checkGather,
-            A.HTML_TAG_FLAG  AS htmlTagFlag
-        FROM
-            COT_DOMAIN_MNG_INFO A,
-            (SELECT MEDIA_ID, MAIN_DOMAIN FROM COT_DOMAIN_INFO WHERE
-                COT_DOMAIN_INFO.MAIN_DOMAIN = #{rootDomain}) B
-        WHERE 1=1 AND A.MEDIA_ID
-            = B.MEDIA_ID AND A.MAIN_DOMAIN = B.MAIN_DOMAIN AND A.GATR_YN = "Y"
+        SELECT *
+        FROM perfectfit.admin,
+        WHERE id = #{userid} AND pw = #{passwd}
     </select>
 
     <insert id="updateAdmin" parameterType="hashMap" >

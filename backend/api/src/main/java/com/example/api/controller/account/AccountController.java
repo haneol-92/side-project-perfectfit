@@ -79,7 +79,7 @@ public class AccountController {
   @PostMapping(path = "/idcheck")
   public boolean idCheck(@RequestBody String userid){
 
-//    boolean result = userService.checkId(userid);
-    return true;
+    boolean result = adminService.checkId(userid);
+    return result;
   }
 }

@@ -21,17 +21,18 @@ public class AdminService implements AdminServiceRepository {
     @Transactional
     public boolean findByAdminidAndPasswd(String userId, String passwd) {
 
-        List<Admin> admin = adminInfoMapper.findByAdminidAndPasswd(userId, passwd);
+        List<Admin> admin = adminInfoMapper.getAdminInfo(userId, passwd);
         if(admin.size() == 0 || admin.isEmpty()){
             return false;
         }
         return true;
     }
 
-    @Override
-    public List<Admin> findByAdminid(String userId) {
-        return null;
-    }
+//    @Override
+//    public int findByAdminid(String userId) {
+//
+//        return adminInfoMapper.getAdminExsist(userId);
+//    }
 
     @Transactional
     public int insertUser(AdminInfo admininfo){
@@ -49,8 +50,8 @@ public class AdminService implements AdminServiceRepository {
 
     @Transactional
     public boolean checkId(String userId) {
-        List<Admin> admin = adminInfoMapper.findByAdminid(userId);
-        if(admin.size() == 0 || admin.isEmpty())
+        int result = adminInfoMapper.getAdminExsist(userId);
+        if(result>0)
             return true;
         else return false;
     }

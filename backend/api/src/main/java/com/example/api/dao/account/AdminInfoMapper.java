@@ -7,7 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface AdminInfoMapper {
-    public List<Admin> findByAdminidAndPasswd(String userid, String passwd);
+    public List<Admin> getAdminInfo(String userid, String passwd);
+    int getAdminExsist(String userid);
     public List<Admin> findByAdminid(String userid);
     public int insertUser(Admin admin);
+
 }

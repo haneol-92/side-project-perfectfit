@@ -10,6 +10,6 @@ import java.util.List;
 public interface AdminServiceRepository{
 
     boolean findByAdminidAndPasswd(String userId, String passwd);
-    List<Admin> findByAdminid(String userId);
+    // findByAdminid(String userId);
 
 }

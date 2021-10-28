@@ -43,19 +43,25 @@ public class MainPageController {
     var resultMap = new HashMap<String, Object>();
 
     try{
+      
+      //파라미터 기본 오늘 날짜
 
-      // 로그인 시도한 아이디와 패스워드가 맞는지에 대한 체
-      if(!adminService.findByAdminidAndPasswd(adminInfo.getId(), adminInfo.getPw())){
-        resultMap.put("status", false);
-        return new ResponseEntity<>(resultMap, HttpStatus.UNAUTHORIZED);
-      }
+      //주문 접수 건수 가져오기
+      
+      //결제 확인 건수 가져오기
 
-      String token = jwtService.createToken(adminInfo);
+      //매출 가져오기
 
-      response.setHeader("jwt-auth-token", token);
+      //적립포인트 가져오기
 
-      resultMap.put("token",response.getHeader("jwt-auth-token"));
-      resultMap.put("status", true);
+      //주문 처리 최근 100일 가져오기
+
+      //알람 유무 여부
+
+      //문의 현황 퍼센테이지
+
+      //
+
       resultMap.put("data",adminInfo);
 
     }catch(Exception e){
@@ -65,18 +71,10 @@ public class MainPageController {
     return ResponseEntity.ok(resultMap);
   }
 
-  @PostMapping(path = "/useradd")
-  public String addUser(@RequestBody UserInfo userinfo) {
 
-//    userService.insertUser(userinfo);
+  @PostMapping(path = "/search")
+  public boolean searchData(@RequestBody String userid){
 
-    return "Join";
-  }
-
-  @PostMapping(path = "/idcheck")
-  public boolean idCheck(@RequestBody String userid){
-
-//    boolean result = userService.checkId(userid);
     return true;
   }
 }
